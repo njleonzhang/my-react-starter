@@ -1,6 +1,7 @@
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
+var webpack = require('webpack')
 // const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
 function resolve (dir) {
@@ -41,10 +42,7 @@ module.exports = {
       {
         test: /\.jsx$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['react', 'es2015']
-        }
+        exclude: /node_modules/
       },
       {
         test: /\.tsx?$/,
@@ -74,5 +72,11 @@ module.exports = {
   },
   plugins: [
     // new TsConfigPathsPlugin()
+    new webpack.ProvidePlugin({
+      React: 'react',
+      Component: ['react', 'Component'],
+      Link: ['react-router-dom', 'Link'],
+      Route: ['react-router-dom', 'Route'],
+    })
   ]
 }

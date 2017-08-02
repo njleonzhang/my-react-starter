@@ -2,7 +2,6 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var webpack = require('webpack')
-// const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -40,17 +39,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader'
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -71,7 +62,6 @@ module.exports = {
     ]
   },
   plugins: [
-    // new TsConfigPathsPlugin()
     new webpack.ProvidePlugin({
       React: 'react',
       Component: ['react', 'Component'],

@@ -65,8 +65,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react',
       Component: ['react', 'Component'],
-      Link: ['react-router-dom', 'Link'],
-      Route: ['react-router-dom', 'Route'],
     })
   ]
 }

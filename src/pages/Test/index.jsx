@@ -9,12 +9,12 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    this.store.setDate(new Date('2019-11-9'))
+    this.store.setDate(new Date('2002-1-1'))
   }
 
   render() {
     return <div>
-        Home {this.store.dateStr}
+        Test {this.store.dateStr}
       </div>
   }
 }

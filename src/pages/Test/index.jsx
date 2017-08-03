@@ -10,6 +10,7 @@ export default class Home extends Component {
 
   componentDidMount() {
     this.store.setDate(new Date('2002-1-1'))
+    console.log(this.props.location.pathname)
   }
 
   render() {

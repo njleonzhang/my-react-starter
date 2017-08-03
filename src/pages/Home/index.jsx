@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 
-@inject('store')
+@inject('store', 'routing')
 @observer
 export default class Home extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ export default class Home extends Component {
 
   componentDidMount() {
     this.store.setDate(new Date('2019-11-9'))
+    console.log(this.props.routing.location.pathname)
   }
 
   render() {

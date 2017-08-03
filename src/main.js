@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
 import '@styles/index.css'
 import App from '@components/App'
-import { BrowserRouter as Router } from "react-router-dom"
+import { Router } from "react-router-dom"
 import { Link } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import { rehydrate, hotRehydrate } from "rfx-core"
@@ -17,7 +17,6 @@ const renderApp = Component => {
   const browserHistory = createBrowserHistory()
   const routerStore = new RouterStore()
   const history = syncHistoryWithStore(browserHistory, routerStore)
-  history.subscribe((location, action) => console.log(location.pathname));
 
   ReactDOM.render(
     <AppContainer>

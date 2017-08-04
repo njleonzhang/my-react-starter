@@ -1,5 +1,4 @@
 import { observable, action, computed } from "mobx";
-import moment from 'moment'
 
 export default class AppState {
   @observable date
@@ -9,7 +8,7 @@ export default class AppState {
   }
 
   @computed get dateStr() {
-    return moment(this.date).format('YYYY-MM-DD')
+    return `${this.date.getFullYear()}/${this.date.getMonth()}/${this.date.getDate()}`
   }
 
   @action setDate(date) {

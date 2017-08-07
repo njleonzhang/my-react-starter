@@ -1,9 +1,7 @@
-import { store } from 'rfx-core'
-
 import AppState from './AppState'
 import MgmtState from './MgmtState'
 
-export default store.setup({
-	appState: AppState,
-  mgmtState: MgmtState
-})
+export default {
+	appState: new AppState(),
+  mgmtState: new MgmtState()
+}

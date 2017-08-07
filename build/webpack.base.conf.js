@@ -23,13 +23,13 @@ module.exports = {
     modules: [
       resolve('src'),
       resolve('node_modules'),
+      resolve('web_modules')
     ],
     alias: {
       '@src': resolve('src'),
       '@styles': resolve('src/assets/styles'),
       '@images': resolve('src/assets/images'),
       '@components': resolve('src/components'),
-      '@webModule': resolve('src/web_modules'),
       '@services': resolve('src/services'),
       '@mixins': resolve('src/mixins'),
       '@pages': resolve('src/pages'),
@@ -41,7 +41,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules|web_modules/
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

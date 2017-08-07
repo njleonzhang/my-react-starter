@@ -24,8 +24,7 @@
     "mobx-react": "^4.2.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-router-dom": "^4.1.2",
-    "rfx-core": "^1.5.3"
+    "react-router-dom": "^4.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

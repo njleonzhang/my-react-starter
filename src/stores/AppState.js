@@ -8,7 +8,7 @@ export default class AppState {
   }
 
   @computed get dateStr() {
-    return `${this.date.getFullYear()}/${this.date.getMonth()}/${this.date.getDate()}`
+    return `${this.date.getFullYear()}/${this.date.getMonth()}/${this.date.getDate()}` + ''
   }
 
   @action setDate(date) {

@@ -9,7 +9,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: resolve('./src/main.js')
+    app: resolve('./src/index.jsx')
   },
   output: {
     path: config.build.assetsRoot,
@@ -44,12 +44,29 @@ module.exports = {
         exclude: /node_modules|web_modules/
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          "file-loader?hash=sha512&digest=hex&name=[hash].[ext]",
+          {
+            loader: "image-webpack-loader",
+            query: {
+              mozjpeg: {
+                progressive: true,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 4,
+              },
+              pngquant: {
+                quality: '75-90',
+                speed: 3,
+              }
+            }
+          }
+        ],
+        exclude: /node_modules/
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,

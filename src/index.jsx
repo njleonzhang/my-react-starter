@@ -13,20 +13,20 @@ import stores from "./stores/stores"
 const store = rehydrate()
 
 const renderApp = Component => {
-	render(
-		<AppContainer>
-			<Router>
-				<Provider store={isProduction ? store : hotRehydrate()}>
-					<Component />
-				</Provider>
-			</Router>
-		</AppContainer>,
-		document.getElementById("app")
-	)
+  render(
+    <AppContainer>
+      <Router>
+        <Provider store={isProduction ? store : hotRehydrate()}>
+          <Component />
+        </Provider>
+      </Router>
+    </AppContainer>,
+    document.getElementById("app")
+  )
 }
 
 renderApp(App)
 
 if (module.hot) {
-	module.hot.accept(() => renderApp(App))
+  module.hot.accept(() => renderApp(App))
 }

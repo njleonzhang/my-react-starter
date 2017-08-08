@@ -25,7 +25,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
-    "rfx-core": "^1.5.3"
+    "rfx-core": "https://github.com/njleonzhang/rfx-core.git"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

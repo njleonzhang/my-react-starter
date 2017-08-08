@@ -16,6 +16,7 @@ export default class Home extends Component {
   render() {
     return <div>
         Home {this.store.dateStr}
+        <div>{this.store.testVal}</div>
       </div>
   }
 }

@@ -7,22 +7,23 @@ import { AppContainer } from 'react-hot-loader'
 import { rehydrate, hotRehydrate } from "rfx-core"
 import { isProduction } from "./utils/constants"
 import { Provider } from "mobx-react"
-import stores from "./stores"
-import {RouterStore, syncHistoryWithStore} from 'mobx-react-router'
+import "./stores"
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import createBrowserHistory from 'history/createBrowserHistory'
 
 const store = rehydrate()
+const browserHistory = createBrowserHistory()
+const routerStore = new RouterStore()
+const history = syncHistoryWithStore(browserHistory, routerStore)
+
+window.router = routerStore
 
 const renderApp = Component => {
-  const browserHistory = createBrowserHistory()
-  const routerStore = new RouterStore()
-  const history = syncHistoryWithStore(browserHistory, routerStore)
-
   ReactDOM.render(
     <AppContainer>
       <Provider store={isProduction ? store : hotRehydrate()} routing={routerStore}>
         <Router history={history}>
-            <App />
+            <Component />
         </Router>
     </Provider>
     </AppContainer>,
@@ -30,9 +31,19 @@ const renderApp = Component => {
   )
 }
 
-renderApp()
+renderApp(App)
 
 // hot reload config
 if (module.hot) {
-	module.hot.accept(() => renderApp(App));
+	module.hot.accept('./components/App', () => {
+    const newApp = require('./components/App').default
+    renderApp(newApp)
+  })
+
+  module.hot.accept('./stores', () => {
+    require('./stores')
+    rehydrate()
+    const newApp = require('./components/App').default
+    renderApp(newApp)
+  })
 }

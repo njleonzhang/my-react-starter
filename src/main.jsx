@@ -36,8 +36,6 @@ renderApp(App)
 // hot reload config
 if (module.hot) {
   module.hot.accept(['./components/App', './stores'], () => {
-    require('./stores')
-    rehydrate()
     const newApp = require('./components/App').default
     renderApp(newApp)
   })

@@ -4,7 +4,7 @@ import Home from '@pages/Home'
 import Test from '@pages/Test'
 import { inject, observer } from 'mobx-react'
 import { Link, Route, withRouter } from "react-router-dom"
-import '../../stores'
+import '../../stores' // for hot-reload, make code change in store trigger App.jsx reload
 
 @withRouter
 @inject('store', 'routing')

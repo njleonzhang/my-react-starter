@@ -5,7 +5,7 @@ import { Router } from "react-router-dom"
 import { Link } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import { rehydrate, hotRehydrate } from "rfx-core"
-import { isProduction } from "./utils/constants"
+import { isProduction } from "@services/Constants"
 import { Provider } from "mobx-react"
 import "./stores"
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'

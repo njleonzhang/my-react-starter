@@ -1,6 +1,8 @@
 import { inject, observer } from 'mobx-react'
+import './home.scss'
+import {post} from '@services/Http'
 
-@inject('store', 'routing')
+@inject('store')
 @observer
 export default class Home extends Component {
   constructor(props) {
@@ -9,14 +11,25 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    this.store.setDate(new Date('2019-11-9'))
-    console.log(this.props.routing.location.pathname)
+    this.store.setDate('2017-1-2')
+  }
+
+  login = () => {
+    post('user/login/', {
+      cellphone: '100001',
+      password: '6666666'
+    }).then(data => {
+      console.log('ok', data)
+    }, error => {
+      console.log('error', error)
+    })
   }
 
   render() {
     return <div>
         Home {this.store.dateStr}
-        <div>{this.store.testVal}</div>
+
+        <button onClick={this.login}>testHttp</button>
       </div>
   }
 }

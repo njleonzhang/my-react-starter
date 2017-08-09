@@ -3,7 +3,8 @@ import img from '@images/logo.svg'
 import Home from '@pages/Home'
 import Test from '@pages/Test'
 import { inject, observer } from 'mobx-react'
-import { Link, Route, withRouter } from "react-router-dom";
+import { Link, Route, withRouter } from "react-router-dom"
+import '../../stores'
 
 @withRouter
 @inject('store', 'routing')

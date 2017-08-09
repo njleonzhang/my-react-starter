@@ -4,24 +4,23 @@ import App from '@components/App'
 import { Router } from "react-router-dom"
 import { Link } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
-import { rehydrate, hotRehydrate } from "rfx-core"
 import { isProduction } from "@services/Constants"
 import { Provider } from "mobx-react"
-import "./stores"
+import store from "./stores"
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import createBrowserHistory from 'history/createBrowserHistory'
 
-const store = rehydrate()
 const browserHistory = createBrowserHistory()
 const routerStore = new RouterStore()
 const history = syncHistoryWithStore(browserHistory, routerStore)
 
 window.router = routerStore
+// window.store = store
 
 const renderApp = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Provider store={isProduction ? store : hotRehydrate()} routing={routerStore}>
+      <Provider store={store} routing={routerStore}>
         <Router history={history}>
             <Component />
         </Router>

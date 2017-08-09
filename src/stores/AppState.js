@@ -6,7 +6,7 @@ export default class AppState {
 
   constructor() {
     this.date = new Date()
-    this.testVal = '123'
+    this.testVal = '1234'
   }
 
   @computed get dateStr() {

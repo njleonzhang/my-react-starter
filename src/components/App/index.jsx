@@ -28,7 +28,7 @@ export default class App extends Component {
           <h3>{this.props.routing.location.pathname}</h3>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          To get started, edit <code>src/App.js</code> and save to reload. {this.store.testVal}
         </p>
         <Link to={'/home'} className='home-link'>
           go to home

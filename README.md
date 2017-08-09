@@ -7,4 +7,4 @@ webpack react starter refer to Vue webpack
 * stylus | scss | sass support
 * hot reload
 
-> hot realod with react-router can not be implemented. if router change set the state, then original state can not keep after hot-reload.
+> hot realod with `react-router` + `mobx` can not be implemented by configuration. in this project, we abandon to keep `current store` after hot reload. but the update to store(both value and action) can work. 

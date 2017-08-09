@@ -11,7 +11,7 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    this.store.setDate('2017-1-2')
+    this.store.setDate(new Date('2017-1-2'))
   }
 
   login = () => {
@@ -29,7 +29,7 @@ export default class Home extends Component {
     return <div>
         Home {this.store.dateStr}
 
-        <button onClick={this.login}>testHttp</button>
+        <button onClick={this.login}>testHttp111</button>
       </div>
   }
 }

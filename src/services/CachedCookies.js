@@ -6,7 +6,6 @@ class CachedCookie {
 
   get() {
     if (this.cookieValue) {
-      console.log('get from cache', this.cookieValue)
       return this.cookieValue
     }
     if (document.cookie && document.cookie !== '') {
@@ -20,17 +19,14 @@ class CachedCookie {
         }
       }
     }
-    console.log('get from cookie', this.cookieValue)
     return this.cookieValue
   }
 
   clear() {
-    console.log('cleared')
     this.cookieValue = ''
   }
 
   renew() {
-    console.log('renew')
     this.cookieValue = ''
     return this.get()
   }

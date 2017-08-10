@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import '@styles/index.css'
+import '@styles/main.scss'
 import App from '@components/App'
 import { Router } from "react-router-dom"
 import { Link } from 'react-router-dom'

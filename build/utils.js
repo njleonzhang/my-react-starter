@@ -32,6 +32,20 @@ exports.cssLoaders = function (options) {
       })
     }
 
+    // sass-resources-loader
+    if (loader == 'sass') {
+      loaders.push({
+        loader: 'sass-resources' + '-loader',
+        options: {
+          resources: [
+            'src/assets/styles/base/variable/**/*.scss',
+            'src/assets/styles/base/mixin/**/*.scss',
+            'src/assets/styles/base/function/**/*.scss'
+          ]
+        }
+      })
+    }
+
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {

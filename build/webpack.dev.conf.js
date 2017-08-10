@@ -5,6 +5,7 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var InlinePlugin = require('./plugins/inline-plugin')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
@@ -34,6 +35,7 @@ module.exports = merge(baseWebpackConfig, {
       inject: true,
       favicon: 'favicon.ico'
     }),
+    new InlinePlugin(),
     new FriendlyErrorsPlugin()
   ]
 })

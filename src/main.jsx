@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'mobx-react'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import createBrowserHistory from 'history/createBrowserHistory'
-import '@styles/index.css'
+import '@styles/main.scss'
 import App from '@components/App'
 import store from './stores'
 

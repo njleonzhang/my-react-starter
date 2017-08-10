@@ -17,14 +17,16 @@ InlinePlugin.prototype.apply = function(compiler) {
         compilation.plugin('html-webpack-plugin-before-html-processing', function(htmlPluginData, callback) {
           var html = htmlPluginData.html
           var tags = html.match(inlineReg)
-          tags.forEach(function(tag) {
-            var ret = tag.match(pathReg)
-            if (ret && ret[1]) {
-              var scriptContent = fs.readFileSync(ret[1], 'utf8')
-              html = html.replace(tag, wrapScript(scriptContent))
-            }
-          })
-          htmlPluginData.html = html
+          if (tags) {
+            tags.forEach(function(tag) {
+              var ret = tag.match(pathReg)
+              if (ret && ret[1]) {
+                var scriptContent = fs.readFileSync(ret[1], 'utf8')
+                html = html.replace(tag, wrapScript(scriptContent))
+              }
+            })
+            htmlPluginData.html = html
+          }
           callback(null, htmlPluginData)
         });
     });

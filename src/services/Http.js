@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-import {CachedBlockId} from '@services/CachedStorages'
-import {CachedCsrf} from '@services/CachedCookies'
+// import { CachedBlockId } from '@services/CachedStorages'
+import { CachedCsrf } from '@services/CachedCookies'
 
 let loadingDelayHanlder
 
-let startLoading = function(showLoading) {
+const startLoading = function(showLoading) {
   if (showLoading) {
     loadingDelayHanlder = setTimeout(_ => {
       // start loading
@@ -13,9 +13,9 @@ let startLoading = function(showLoading) {
   }
 }
 
-let stopLoading = function(showLoading) {
+const stopLoading = function(showLoading) {
   if (showLoading) {
-    clearTimeout(loadingDelayHanlder);
+    clearTimeout(loadingDelayHanlder)
     // stop loading
   }
 }
@@ -24,16 +24,16 @@ function httpBase(method, url, data = {}, options = {}) {
   function innerHttpBase({
     showLoading = true,
     showErrorToast = true,
-    throwError = false
+    throwError = false,
   }) {
-    let httpOptions = {
+    const httpOptions = {
       method,
       url: process.env.httpBaseUrl + url,
       headers: {
         'x-zhsq-source': 'wechat',
-        'x-zhsq-room-id': ''
+        'x-zhsq-room-id': '',
       },
-      withCredentials: true
+      withCredentials: true,
     }
 
     if (method === 'post') {
@@ -44,13 +44,13 @@ function httpBase(method, url, data = {}, options = {}) {
     return new Promise((resolve, reject) => {
       startLoading(showLoading)
 
-      axios(httpOptions).then(response => {
+      axios(httpOptions).then((response) => {
         stopLoading(showLoading)
-        let data = response.data
-        if (data) {
-          switch (data.code) {
+        const resData = response.data
+        if (resData) {
+          switch (resData.code) {
             case 'OK':
-              resolve(data.data)
+              resolve(resData.data)
               break
 
             case 'USER_NOT_LOGGED_IN':
@@ -60,7 +60,7 @@ function httpBase(method, url, data = {}, options = {}) {
 
             default:
               if (throwError) {
-                reject(data.msg)
+                reject(resData.msg)
               }
 
               if (showErrorToast) {
@@ -68,9 +68,9 @@ function httpBase(method, url, data = {}, options = {}) {
               }
           }
         }
-      }, error => {
+      }, (error) => {
         stopLoading(showLoading)
-        let status = parseInt(error.status / 100, 10)
+        const status = parseInt(error.status / 100, 10)
         let errorMsg = ''
         switch (status) {
           case 5:
@@ -95,10 +95,10 @@ function httpBase(method, url, data = {}, options = {}) {
   return innerHttpBase(options)
 }
 
-export let get = function(url, options) {
-  return httpBase('get', url)
+export const get = function(url, options) {
+  return httpBase('get', url, {}, options)
 }
 
-export let post = function(url, data) {
-  return httpBase('post', url, data)
+export const post = function(url, data, options) {
+  return httpBase('post', url, data, options)
 }

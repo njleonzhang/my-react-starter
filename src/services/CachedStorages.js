@@ -26,4 +26,4 @@ class CachedStorage {
   }
 }
 
-export let CachedBlockId = new CachedStorage('blockId')
+export const CachedBlockId = new CachedStorage('blockId')

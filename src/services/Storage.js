@@ -7,5 +7,5 @@ module.exports = {
   },
   remove(key) {
     return window.localStorage.removeItem(key)
-  }
+  },
 }

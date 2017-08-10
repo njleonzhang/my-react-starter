@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
+import { post } from '@services/Http'
 import './home.scss'
-import {post} from '@services/Http'
 
 @inject('store')
 @observer
@@ -17,19 +17,19 @@ export default class Home extends Component {
   login = () => {
     post('user/login/', {
       cellphone: '100001',
-      password: '6666666'
-    }).then(data => {
+      password: '6666666',
+    }).then((data) => {
       console.log('ok', data)
-    }, error => {
+    }, (error) => {
       console.log('error', error)
     })
   }
 
   render() {
-    return <div>
+    return (<div>
         Home {this.store.dateStr}
 
-        <button onClick={this.login}>testHttp111</button>
-      </div>
+      <button onClick={this.login}>testHttp111</button>
+    </div>)
   }
 }

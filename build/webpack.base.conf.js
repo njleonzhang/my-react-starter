@@ -2,6 +2,7 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var webpack = require('webpack')
+var projectRoot = path.resolve(__dirname, '../')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -40,7 +41,18 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
+        loader: 'eslint-loader',
+        enforce: "pre",
+        include: projectRoot,
+        exclude: /node_modules/,
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
+      {
+        test: /\.jsx?$/,
         loader: 'babel-loader',
+        include: projectRoot,
         exclude: /node_modules/
       },
       {

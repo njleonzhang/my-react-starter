@@ -12,7 +12,7 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = [
     'babel-polyfill',
     'react-hot-loader/patch',
-    'webpack-hot-middleware/client?reload=true'
+    'webpack-hot-middleware/client?reload=true&overlay=false&noInfo=true'
   ].concat(baseWebpackConfig.entry[name])
 })
 

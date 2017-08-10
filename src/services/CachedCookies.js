@@ -9,9 +9,9 @@ class CachedCookie {
       return this.cookieValue
     }
     if (document.cookie && document.cookie !== '') {
-      let cookies = document.cookie.split(' ')
+      const cookies = document.cookie.split(' ')
       for (let i = 0; i < cookies.length; i++) {
-        let cookie = (cookies[i]).trim()
+        const cookie = (cookies[i]).trim()
         // Does this cookie string begin with the name we want?
         if (cookie.substring(0, this.name.length + 1) === (`${this.name}=`)) {
           this.cookieValue = decodeURIComponent(cookie.substring(this.name.length + 1))
@@ -32,4 +32,4 @@ class CachedCookie {
   }
 }
 
-export let CachedCsrf = new CachedCookie('csrftoken')
+export const CachedCsrf = new CachedCookie('csrftoken')

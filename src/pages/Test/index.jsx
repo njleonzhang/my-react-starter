@@ -14,8 +14,8 @@ export default class Home extends Component {
   }
 
   render() {
-    return <div>
+    return (<div>
         Test {this.store.dateStr}
-      </div>
+    </div>)
   }
 }

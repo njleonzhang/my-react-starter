@@ -15,7 +15,6 @@ const routerStore = new RouterStore()
 const history = syncHistoryWithStore(browserHistory, routerStore)
 
 window.router = routerStore
-// window.store = store
 
 const renderApp = Component => {
   ReactDOM.render(

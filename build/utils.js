@@ -42,7 +42,7 @@ exports.cssLoaders = function (options) {
     // sass-resources-loader
     if (loader == 'sass') {
       loaders.push({
-        loader: 'sass-resources' + '-loader',
+        loader: 'sass-resources-loader',
         options: {
           resources: [
             'src/assets/styles/base/variable/**/*.scss',

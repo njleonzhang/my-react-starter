@@ -15,16 +15,6 @@ var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
 
-  console.dir(utils.styleLoaders({
-    sourceMap: config.build.productionSourceMap,
-    extract: true
-  })[3], {depth: 10})
-
-console.dir(utils.styleLoaders({
-  sourceMap: config.build.productionSourceMap,
-  extract: true
-})[4], {depth: 10})
-
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({

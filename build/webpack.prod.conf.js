@@ -8,8 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-var UnminifiedWebpackPlugin = require('unminified-webpack-plugin')
-var InlinePlugin = require('./plugins/inline-plugin')
+// var UnminifiedWebpackPlugin = require('unminified-webpack-plugin')
 
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -38,9 +37,9 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       sourceMap: true
     }),
-    new UnminifiedWebpackPlugin({
-      postfix: ''
-    }),
+    // new UnminifiedWebpackPlugin({
+    //   postfix: ''
+    // }),
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
@@ -72,7 +71,6 @@ var webpackConfig = merge(baseWebpackConfig, {
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
-    new InlinePlugin(),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -104,6 +102,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
+if (config.build.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
 
   webpackConfig.plugins.push(
@@ -119,7 +118,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       minRatio: 0.8
     })
   )
-
+}
 
 if (config.build.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin

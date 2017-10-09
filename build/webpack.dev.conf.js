@@ -5,14 +5,13 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-var HtmlWebpackInlinePlugin = require('html-webpack-inline-plugin')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = [
     'babel-polyfill',
     'react-hot-loader/patch',
-    'webpack-hot-middleware/client?reload=true&overlay=false&noInfo=true'
+    'webpack-hot-middleware/client?reload=true&noInfo=true'
   ].concat(baseWebpackConfig.entry[name])
 })
 
@@ -35,7 +34,6 @@ module.exports = merge(baseWebpackConfig, {
       inject: true,
       favicon: 'favicon.ico'
     }),
-    new HtmlWebpackInlinePlugin(),
     new FriendlyErrorsPlugin()
   ]
 })

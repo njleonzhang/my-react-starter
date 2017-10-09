@@ -2,6 +2,8 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var webpack = require('webpack')
+var HtmlWebpackInlinePlugin = require('html-webpack-inline-plugin')
+
 var projectRoot = path.resolve(__dirname, '../')
 
 function resolve (dir) {
@@ -30,25 +32,14 @@ module.exports = {
       '@styles': resolve('src/assets/styles'),
       '@images': resolve('src/assets/images'),
       '@components': resolve('src/components'),
-      '@webModule': resolve('src/web_modules'),
+      '@webModule': resolve('web_modules'),
       '@services': resolve('src/services'),
-      '@mixins': resolve('src/mixins'),
       '@pages': resolve('src/pages'),
-      '@store': resolve('src/store')
+      '@stores': resolve('src/store'),
     }
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'eslint-loader',
-        enforce: "pre",
-        include: projectRoot,
-        exclude: /node_modules/,
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
@@ -77,6 +68,8 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react',
       Component: ['react', 'Component'],
-    })
+      noop: ['@services/Constants', 'noop']
+    }),
+    new HtmlWebpackInlinePlugin()
   ]
 }

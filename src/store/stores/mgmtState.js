@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 
-export default class AuthState {
+class AuthState {
   @observable authCode
 
   constructor() {
@@ -11,3 +11,5 @@ export default class AuthState {
     this.authCode = authCode
   }
 }
+
+export default new AuthState()

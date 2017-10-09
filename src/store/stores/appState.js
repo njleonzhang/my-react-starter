@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx'
 
-export default class AppState {
+class AppState {
   @observable date
   @observable testVal
 
@@ -17,3 +17,5 @@ export default class AppState {
     this.date = date
   }
 }
+
+export default new AppState()

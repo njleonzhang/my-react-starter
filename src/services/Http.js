@@ -1,14 +1,17 @@
 import axios from 'axios'
 
-// import { CachedBlockId } from '@services/CachedStorages'
 import { CachedCsrf } from '@services/CachedCookies'
+import { routerStore } from '@stores'
+import Toast from '@components/Toast'
 
 let loadingDelayHanlder
 
 const startLoading = function(showLoading) {
   if (showLoading) {
+    clearTimeout(loadingDelayHanlder)
     loadingDelayHanlder = setTimeout(_ => {
       // start loading
+      Toast.loading()
     }, 500)
   }
 }
@@ -17,21 +20,24 @@ const stopLoading = function(showLoading) {
   if (showLoading) {
     clearTimeout(loadingDelayHanlder)
     // stop loading
+    Toast.hide()
   }
+}
+
+function parseData(response) {
+  return response.data
 }
 
 function httpBase(method, url, data = {}, options = {}) {
   function innerHttpBase({
     showLoading = true,
     showErrorToast = true,
-    throwError = false,
   }) {
     const httpOptions = {
       method,
       url: process.env.httpBaseUrl + url,
       headers: {
         'x-zhsq-source': 'wechat',
-        'x-zhsq-room-id': '',
       },
       withCredentials: true,
     }
@@ -41,35 +47,36 @@ function httpBase(method, url, data = {}, options = {}) {
       httpOptions.headers['X-CSRFToken'] = CachedCsrf.get()
     }
 
-    return new Promise((resolve, reject) => {
-      startLoading(showLoading)
+    startLoading(showLoading)
 
-      axios(httpOptions).then((response) => {
+    return axios(httpOptions)
+      .then(parseData)
+      .then(response => {
         stopLoading(showLoading)
-        const resData = response.data
-        if (resData) {
-          switch (resData.code) {
-            case 'OK':
-              resolve(resData.data)
-              break
+        if (response.code === 'OK') {
+          return response.data ? response.data : {}
+        }
+        const error = new Error(response.msg)
+        error.response = response
+        throw error
+      }).catch(error => {
+        stopLoading(showLoading)
 
+        if (error.response) {
+          switch (error.response.code) {
             case 'USER_NOT_LOGGED_IN':
             case 'CSRF_FAILED':
-              window.router.push('/test')
+              Toast.show(error.message)
+              routerStore.replace(`/login?redirect=${routerStore.location.pathname}`)
               break
 
             default:
-              if (throwError) {
-                reject(resData.msg)
-              }
-
               if (showErrorToast) {
-                // show toast
+                Toast.show(error.message)
               }
           }
+          return Promise.reject(error)
         }
-      }, (error) => {
-        stopLoading(showLoading)
         const status = parseInt(error.status / 100, 10)
         let errorMsg = ''
         switch (status) {
@@ -85,20 +92,25 @@ function httpBase(method, url, data = {}, options = {}) {
           default:
             errorMsg = '未知错误'
         }
-        if (throwError) {
-          reject(errorMsg)
+        if (showErrorToast) {
+          Toast.show(errorMsg)
         }
+        return Promise.reject(error)
       })
-    })
   }
 
   return innerHttpBase(options)
 }
 
-export const get = function(url, options) {
+const get = function(url, options) {
   return httpBase('get', url, {}, options)
 }
 
-export const post = function(url, data, options) {
+const post = function(url, data, options) {
   return httpBase('post', url, data, options)
+}
+
+export {
+  get,
+  post
 }

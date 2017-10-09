@@ -10,8 +10,8 @@ body {
 
 .container {
   font-family: Helvetica Neue,Helvetica,
-  Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,
-  Microsoft Yahei,sans-serif;
+    Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,
+    Microsoft Yahei,sans-serif;
   position: absolute;
   top: 0;
   right: 0;
@@ -65,3 +65,5 @@ body {
   border-radius: 10px;
   font-weight: 200;
 }
+
+@include image-icon(grey-arrow, 32, "../images/grey-arrow.png");

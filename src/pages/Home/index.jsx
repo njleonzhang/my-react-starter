@@ -2,12 +2,12 @@ import { inject, observer } from 'mobx-react'
 import { post } from '@services/Http'
 import './home.scss'
 
-@inject('store')
+@inject('appState')
 @observer
 export default class Home extends Component {
   constructor(props) {
     super(props)
-    this.store = this.props.store.appState
+    this.store = this.props.appState
   }
 
   componentDidMount() {
@@ -26,10 +26,11 @@ export default class Home extends Component {
   }
 
   render() {
-    return (<div>
-        Home {this.store.dateStr}
-
-      <button onClick={this.login}>testHttp111</button>
-    </div>)
+    return (
+      <div>
+        Home {this.store.dateStr }
+        <button onClick={this.login}>testHttp111</button>
+      </div>
+    )
   }
 }

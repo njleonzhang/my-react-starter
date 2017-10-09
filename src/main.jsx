@@ -2,28 +2,31 @@ import ReactDOM from 'react-dom'
 import { Router } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'mobx-react'
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { syncHistoryWithStore } from 'mobx-react-router'
+import fastClick from 'fastclick'
+import createHashHistory from 'history/createHashHistory'
 import '@styles/main.scss'
 import App from '@components/App'
-import store from './stores'
+import { isObservable } from 'mobx'
+import store, { routerStore } from '@stores'
+import promiseFinally from 'promise.prototype.finally'
 
-const browserHistory = createBrowserHistory()
-const routerStore = new RouterStore()
-const history = syncHistoryWithStore(browserHistory, routerStore)
+promiseFinally.shim()
+fastClick.attach(document.body)
 
-window.router = routerStore
+const hashHistory = createHashHistory()
+const history = syncHistoryWithStore(hashHistory, routerStore)
 
-const renderApp = (Component) => {
+const renderApp = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Provider store={store} routing={routerStore}>
+      <Provider {...store}>
         <Router history={history}>
           <Component />
         </Router>
       </Provider>
     </AppContainer>,
-    document.getElementById('app'),
+    document.getElementById('app')
   )
 }
 
@@ -31,8 +34,12 @@ renderApp(App)
 
 // hot reload config
 if (module.hot) {
-  module.hot.accept(['./components/App', './stores'], () => {
-    const newApp = import('./components/App')
+  module.hot.accept(['./components/App', './store'], () => {
+    const newApp = require('./components/App').default
     renderApp(newApp)
   })
 }
+
+// for test
+window.isObservable = isObservable
+window.APP_STORE = store

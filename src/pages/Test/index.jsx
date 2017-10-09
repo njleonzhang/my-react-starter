@@ -1,11 +1,11 @@
 import { inject, observer } from 'mobx-react'
 
-@inject('store')
+@inject('appState')
 @observer
 export default class Home extends Component {
   constructor(props) {
     super(props)
-    this.store = this.props.store.appState
+    this.store = this.props.appState
   }
 
   componentDidMount() {

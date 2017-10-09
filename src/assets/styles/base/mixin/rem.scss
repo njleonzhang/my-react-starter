@@ -1,21 +1,12 @@
-@function px2rem($px, $base-font-size: 75px) {
-  @if (unitless($px)) {
-    @return px2rem($px + 0px); // That may fail.
-  } @else if (unit($px) == rem) {
-    @return $px;
-  }
-  @return ($px / $base-font-size) * 1rem;
-}
-
 @mixin font-dpr($font-size){
-  font-size: $font-size;
+  font-size: to-upper-case(#{$font-size});
 
   [data-dpr="2"] & {
-    font-size: $font-size * 2;
+    font-size: to-upper-case(#{$font-size * 2});
   }
 
   [data-dpr="3"] & {
-    font-size: $font-size * 3;
+    font-size: to-upper-case(#{$font-size * 3});
   }
 }
 
@@ -31,74 +22,14 @@
   }
 }
 
-@mixin after-generate($height, $width, $right, $top, $image){
-  &:after {
-    content: "";
-    height: $height;
-    width: $width;
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    right: $right;
-    top: $top;
-    background-image: url($image);
-  }
-}
+@mixin dpr($property, $value){
+  #{$property}: $value;
 
-// create placeholder mixin
-@mixin placeholder($color, $size:"") {
-  &::-webkit-input-placeholder {
-    color: $color;
-    @if $size != "" {
-      font-size: $size;
-    }
+  [data-dpr="2"] & {
+    #{$property}: $value * 2;
   }
-  &:-moz-placeholder {
-    color: $color;
-    @if $size != "" {
-      font-size: $size;
-    }
-  }
-  &::-moz-placeholder {
-    color: $color;
-    @if $size != "" {
-      font-size: $size;
-    }
-  }
-  &:-ms-input-placeholder {
-    color: $color;
-    @if $size != "" {
-      font-size: $size;
-    }
-  }
-}
 
-@mixin fontsize($size){
-    @include font-dpr(14px);
-}
-
-$borderColor: #d5d5d5;
-@mixin one-px-border($direction: top, $color: $borderColor) {
-  background-color: $borderColor;
-  content: "";
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  @if $direction == top or $direction == bottom {
-    width: 100%;
-    height: 1px;
-  }
-  @if $direction == bottom {
-    top: auto;
-    bottom: 0;
-  }
-  @if $direction == left or $direction == right {
-    height: 100%;
-    width: 1px;
-  }
-  @if $direction == right {
-    left: auto;
-    right: 0;
+  [data-dpr="3"] & {
+    #{$property}: $value * 3;
   }
 }
